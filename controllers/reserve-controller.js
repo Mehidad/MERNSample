@@ -13,44 +13,31 @@ const { tryCatchHandler } = require('../utilities/trycatch_handler');
 // }) ;
 
 const getReserves = tryCatchHandler(async (req, res) => {
-    const result = await  ReserveModel.getReserves()
+  
+    const result = await  ReserveModel.getReserves(req)
     res.send(result);
 }) ;
 
 const insertReserve = (req, res) => {
-  console.log(req.body);
- 
-  ReserveModel.insertReserve(req.body,res).then((result) => res.send(result));
+  ReserveModel.insertReserve(req.body).then((result) => res.send(result));
 };
 
-// const updateCourse = (req, res) => {
-//   CoursesModel.getCourse(parseInt(req.params.id)).then((result) => {
-//     if (!result) return res.status(404).send("course with given id not found");
-//   });
-//   //const course = courses.find((c) => c.id === parseInt(req.params.id));
+const updateReserve = (req, res) => {
+  
+  ReserveModel.UpdateReserve(req).then((result) => res.send(result));
+};
 
-//   if (!req.body.name || req.body.name.length < 3)
-//     return res.status(400).send("name is required and more than 3 charachter");
 
-//   CoursesModel.updateCourse(parseInt(req.params.id), req.body.name).then(
-//     (result) => {
-//       res.send(result);
-//     }
-//   );
-// };
+const deleteReserve = (req, res) => {
 
-// const deleteCourse = (req, res) => {
-//   CoursesModel.getCourse(parseInt(req.params.id)).then((result) => {
-//     if (!result) return res.status(404).send("course with given id not found");
-//   });
-//   CoursesModel.deleteCourse(parseInt(req.params.id)).then((rsult) => {
-//     res.send(result);
-//   });
-// };
+  ReserveModel.deleteReserve(req).then((result) => res.send(result));
+ 
+};
 
 module.exports = {
  
     getReserves,
   insertReserve,
- 
+  updateReserve,
+  deleteReserve
 };
