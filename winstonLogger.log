@@ -119,3 +119,15 @@
   timestamp: '2024-08-13T09:57:18.121Z',
   label: 'this is lable'
 }
+{
+  level: 'error',
+  message: 'this is message for winston',
+  timestamp: '2024-08-14T13:03:39.155Z',
+  label: 'this is lable'
+}
+{
+  level: 'error',
+  message: 'this is message for winston',
+  timestamp: '2024-08-14T13:07:41.369Z',
+  label: 'this is lable'
+}

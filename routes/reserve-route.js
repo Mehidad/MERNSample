@@ -12,8 +12,8 @@ router.get("/",   reserveController.getReserves);
 // router.use(auth)
 router.post("/", reserveController.insertReserve);
 
-// router.put("/:id", reserveController.updateDoctor);
+ router.put("/:id", reserveController.updateReserve);
 
-//  router.delete("/:id", reserveController.deleteDoctor);
+router.delete("/:id", reserveController.deleteReserve);
 
 module.exports = router;
