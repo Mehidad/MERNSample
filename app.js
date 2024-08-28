@@ -9,7 +9,7 @@ const userRoute = require("./routes/users-route");
 const reserveRoute = require("./routes/reserve-route");
 const errorHandler = require("./middelwares/error_handler");
 const connectDB= require('./utilities/mongo')
-
+const cors = require('cors');
 
 require("dotenv").config();
 
@@ -19,6 +19,16 @@ const dbDebug = require("debug")("db")
 connectDB();
 const app = express();
 app.use(express.json());
+
+// CORS Middleware
+app.use(cors());
+
+// app.use(cors({
+//   origin: 'http://your-frontend-domain.com', // Replace with your frontend domain
+//   methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed HTTP methods
+//   credentials: true // Allow cookies to be sent
+// }));
+
 //app.use(express.static('public'))
 //app.use(Logger);
 app.use(helmet());

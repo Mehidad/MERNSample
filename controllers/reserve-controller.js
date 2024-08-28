@@ -13,8 +13,9 @@ const { tryCatchHandler } = require('../utilities/trycatch_handler');
 // }) ;
 
 const getReserves = tryCatchHandler(async (req, res) => {
-  
+
     const result = await  ReserveModel.getReserves(req)
+     console.log(result.Data);
     res.send(result);
 }) ;
 

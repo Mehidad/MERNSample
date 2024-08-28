@@ -5,14 +5,23 @@ class ReserveModel {
 
     static getReserves= async (req) => {
       const { page = 1, limit = 10, doctorId, visitDate } = req.query;
-      // Build query object
       let query = {};
       if (doctorId) {
           query.doctor = doctorId;
       }
       if (visitDate) {
-          query.visitDate = new Date(visitDate);
+          const startOfDay = new Date(visitDate);
+          startOfDay.setHours(0, 0, 0, 0); // Set to start of the day (00:00:00)
+  
+          const endOfDay = new Date(visitDate);
+          endOfDay.setHours(23, 59, 59, 999); // Set to end of the day (23:59:59)
+  
+          query.visitDate = {
+              $gte: startOfDay,  // Greater than or equal to start of the day
+              $lt: endOfDay      // Less than end of the day
+          };
       }
+      console.log(query)
       const total = await Reserve.countDocuments(query);
       const reservations = await Reserve.find(query)
       .populate('doctor')
@@ -26,26 +35,26 @@ class ReserveModel {
       };
 
       static insertReserve = async (req) => {
-       
-        const { doctor, patientName, hour, visitDate, serviceType } = req;
-       
+        const { doctor, patientName, hour, visitDate, serviceType } = req;  // Corrected the typo here
+    
         if (!mongoose.Types.ObjectId.isValid(doctor)) {
-           // return res.status(400).send({ error: "Invalid Doctor ID format" });
-           return OutPutModel(400,"Invalid Doctor ID format",[])
-          }
-          const reserve = new Reserve({
+            return OutPutModel(400, "Invalid Doctor ID format", []);
+        }
+    
+        const reserve = new Reserve({
             doctor,
-            patientName,
+            patientName,  // Corrected the typo here as well
             hour,
             visitDate,
             serviceType
-          });
-         
-          await reserve.save();
-          
-        return OutPutModel(201,"successfully",reserve)
-      };
-
+        });
+    
+        await reserve.save();
+        console.log(reserve);
+    
+        return OutPutModel(201, "successfully", reserve);
+    };
+    
 static UpdateReserve=async (req)=>{
   const updatedReservation = await Reserve.findByIdAndUpdate(req.params.id, req.body, { new: true });
   if (!updatedReservation) return OutPutModel(404,"Reservation not found",[]);

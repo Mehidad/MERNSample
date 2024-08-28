@@ -1,32 +1,29 @@
-const mongoose= require("mongoose");
-
+const mongoose = require("mongoose");
 
 const reserveSchema = new mongoose.Schema({
-
-  
     doctor: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Doctor',
         required: true
-      },
-    patinetName:{
-        type: String,
-        require:true
     },
-    hour:{
+    patientName: {  // Corrected the typo here
         type: String,
-        require:true
+        required: true
     },
-    visitDate:{
+    hour: {
+        type: String,
+        required: true
+    },
+    visitDate: {
         type: Date,
-        require:true
+        required: true
     },
     serviceType: {
         type: String,
         enum: ['Consultation', 'Follow-up', 'Surgery', 'Emergency'],
         required: true
-      },
-})
+    },
+});
 
 const Reserve = mongoose.model('Reserve', reserveSchema);
 module.exports = Reserve;
